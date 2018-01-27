@@ -218,8 +218,8 @@ md-list {
 }
 
 md-list-item::before {
-    min-height: 80px;
-    height: 80px;
+    min-height: 70px;
+    height: 70px;
 }
 
 md-list-item > p,

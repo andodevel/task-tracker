@@ -30,8 +30,8 @@
         };
 
         // $this
-        const appInteval = 1000;
-        const intervalInSecond = 1000 / appInteval;
+        const appInteval = 1000; //ms
+        const intervalInSecond =  appInteval / 1000;
 
         let taskCtrl = this;
 
@@ -112,6 +112,7 @@
         taskCtrl.toogleTask = toogleTask;
 
         function toogleTask(task) {
+            taskCtrl.runningTask = undefined;
             let lazyIsRunning = task.isRunning;
             angular.forEach(taskCtrl.tasks, function(key, value) {
                 key.isRunning = false;
@@ -159,6 +160,7 @@
         taskCtrl.deleteAllTasks = deleteAllTasks;
 
         function deleteAllTasks() {
+            taskCtrl.runningTask = undefined;
             logger.info("Remove all tasks: ");
             taskCtrl.tasks.length = 0;
             taskCtrl.spentTime = 0;
@@ -173,6 +175,7 @@
                     task.isRunning = false;
                 }
             });
+            taskCtrl.runningTask = undefined;
         }
 
         taskCtrl.getSpentMinute = getSpentMinute;
