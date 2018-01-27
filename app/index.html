@@ -16,6 +16,7 @@
     <script src="scripts/menu.js" charset="utf-8"></script>
     <script src="scripts/app/taskController.js" charset="utf-8"></script>
     <script src="scripts/app/config.js" charset="utf-8"></script>
+    <script src="scripts/app/ngCopy.js" charset="utf-8"></script>
 
     <script src="http://localhost:35729/livereload.js"></script>
 </head>
@@ -47,15 +48,15 @@
                             <md-icon md-svg-icon="{{ task.isRunning ? 'play' : 'pause'}}" class="md-primary md-hue-3 icon-34" ng-click="taskCtrl.toogleTask(task)" aria-label="PlayOrPause"></md-icon>
                         </md-avatar>
                         <div layout="column" flex="100">
-                            <div ng-dblclick="taskCtrl.editTask(task)" ng-blur="taskCtrl.onTaskEdittingBlur($event)">
-                                <span class="editable item-major" ng-hide="task.editing">{{task.name | limitTo:16}}
+                            <div ng-dblclick="taskCtrl.editTask(task)">
+                                <span class="item-major" ng-hide="task.editing" my-tooltip><md-tooltip md-delay="300">Edit</md-tooltip>{{task.name | limitTo:16}}
                                     <span class="item-major" ng-if="task.name.length > 16">...</span>
                                 </span>
-                                <form ng-submit="taskCtrl.doneEdittingTask(task)" ng-show="task.editing">
-                                    <input class="editable item-major" ng-model="task.name" ng-click="taskCtrl.onTextSelection($event)">
-                                </form>
+                                <input focus-on-show class="item-major" ng-model="task.inputName" ng-blur="taskCtrl.cancelEdittingTask(task)" ng-show="task.editing" my-enter="taskCtrl.doneEdittingTask(task)" my-leave="taskCtrl.cancelEdittingTask(task)">
                             </div>
-                            <span class="item-minor">{{ taskCtrl.getSpentHour(task) }}h&nbsp;{{ taskCtrl.getSpentMinute(task) }}m<md-tooltip md-delay="300">Copy</md-tooltip></span>
+                            <!--Oops, I'm lazy! :)-->
+                            <md-button ng-click-copy="{{ taskCtrl.getSpentHour(task) }}h {{ taskCtrl.getSpentMinute(task) }}m" class="item-minor" my-tooltip><md-tooltip md-delay="300">Copy</md-tooltip>{{ taskCtrl.getSpentHour(task) }}h&nbsp;{{ taskCtrl.getSpentMinute(task) }}m
+                            </md-button>
                         </div>
                         <md-icon md-svg-icon="delete" class="md-primary md-hue-3 icon-28" ng-click="taskCtrl.deleteTask(task)" aria-label="Delete" flex="10">
                             <md-tooltip md-delay="300">Remove</md-tooltip>

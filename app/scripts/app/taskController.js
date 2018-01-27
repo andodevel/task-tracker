@@ -9,9 +9,9 @@
                 .icon('delete', '../assets/img/icons/ic_delete.svg', 48)
                 .icon('done', '../assets/img/icons/ic_done.svg', 48)
         })
-        .controller('TaskController', ['$scope', '$interval', '$mdDialog', 'logger', TaskController]);
+        .controller('TaskController', ['$scope', '$document', '$interval', '$mdDialog', 'logger', TaskController]);
 
-    function TaskController($scope, $interval, $mdDialog, logger) {
+    function TaskController($scope, $document, $interval, $mdDialog, logger) {
         // $scope
         $scope.parseInt = parseInt;
 
@@ -79,7 +79,8 @@
                         $scope.showAlert("Alert", "Task already existed!");
                     } else {
                         logger.info("Adding task: " + taskName);
-                        taskCtrl.tasks.push({ name: taskName, isRunning: false, editing: false, spentTime: 0 });
+                        taskCtrl.tasks.push({ name: taskName, inputName: taskName, isRunning: false, editing: false,
+                            spentTime: 0 });
                         taskCtrl.inputTask = "";
                     }
                 }
@@ -96,14 +97,6 @@
 
         function onTextSelection($event) {
             $event.target.select();
-        }
-
-        taskCtrl.onTaskEdittingBlur = onTaskEdittingBlur;
-
-        function onTaskEdittingBlur(task) {
-            angular.forEach(taskCtrl.tasks, function(key, value) {
-                key.editing = false;
-            });
         }
 
         taskCtrl.editTask = editTask;
@@ -134,12 +127,25 @@
         taskCtrl.doneEdittingTask = doneEdittingTask;
 
         function doneEdittingTask(task) {
-            if (!angular.element(task.srcElement)
-                .hasClass('editable')) {
-                angular.forEach(taskCtrl.tasks, function(key, value) {
-                    key.editing = false;
-                });
+            if (task.inputName.trim()) {
+                task.name = task.inputName;
+                taskCtrl.unselectEdittingTask(task);
+                logger.info("Finish editting task: " + task.name);
             }
+        }
+
+        taskCtrl.cancelEdittingTask = cancelEdittingTask;
+
+        function cancelEdittingTask(task) {
+            taskCtrl.unselectEdittingTask(task);
+            logger.info("Cancel editting task: " + task.name);
+        }
+
+        taskCtrl.unselectEdittingTask = unselectEdittingTask;
+
+        function unselectEdittingTask(task) {
+            task.editing = false;
+            task.inputName = task.name;
         }
 
         taskCtrl.deleteTask = deleteTask;
@@ -190,6 +196,12 @@
         taskCtrl.getTotalSpentHour = getTotalSpentHour;
 
         function getTotalSpentHour() {
+            return parseInt(taskCtrl.spentTime / 3600);
+        }
+
+        taskCtrl.copySpentTimeToClipBoard = copySpentTimeToClipBoard;
+
+        function copySpentTimeToClipBoard() {
             return parseInt(taskCtrl.spentTime / 3600);
         }
 
