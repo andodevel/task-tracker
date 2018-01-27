@@ -11,3 +11,5 @@ yarn-error.log
 !.vscode/launch.json
 !.vscode/extensions.json
 
+# App
+release-builds/*
