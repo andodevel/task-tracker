@@ -1,5 +1,6 @@
 # task-tracker
 Add task and track the progress  
+![App screenshot](https://raw.githubusercontent.com/andoheadyrang/task-tracker/master/github/app.png)  
 
 ## How to
 
