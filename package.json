@@ -1,5 +1,5 @@
 {
-    "name": "task_tracker",
+    "name": "task-tracker",
     "version": "0.1.0",
     "description": "",
     "main": "app/main.js",
@@ -23,11 +23,11 @@
         "start": "electron . --enable-logging --remote-debugging-port=9222",
         "listen": "live-reload --port 35729 .",
         "dev": "NODE_ENV='development' npm run start",
-        "package": "electron-packager . --overwrite --platform=darwin --arch=x64 --icon=assets/app.icns --prune=true --out=release-builds"
+        "osx-package": "electron-packager . --overwrite --platform=darwin --arch=x64 --icon=assets/app.icns --prune=true --out=release-builds"
     },
     "repository": {
         "type": "git",
-        "url": "git@github.com:andoheadyrang/task_tracker.git"
+        "url": "git@github.com:andoheadyrang/task-tracker.git"
     },
     "author": "An Do ando.heayrang@gmail.com",
     "license": "MIT"

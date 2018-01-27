@@ -1,6 +1,9 @@
 # node.js
 node_modules/
 
+# yarn
+yarn-error.log
+
 # Share vscode configuration
 .vscode/*
 !.vscode/settings.json
