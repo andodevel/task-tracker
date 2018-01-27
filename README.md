@@ -1,6 +1,7 @@
 # task-tracker
 Add task and track the progress  
-![App screenshot](https://raw.githubusercontent.com/andoheadyrang/task-tracker/master/github/app.png)  
+![App screenshot](screenshot.png)  
+NOTE: OSX supported only.  
 
 ## How to
 
@@ -16,7 +17,9 @@ yarn listen
 yarn dev
 
 # build OSX package
-yarn osx-package.
+yarn dist --mac
 ```
 
-You can also start from vscode task runner or debuging.  
+Set the DEBUG environment variable to debug what electron-builder is doing:  
+
+DEBUG=electron-builder,electron-builder:*  

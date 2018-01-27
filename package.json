@@ -1,6 +1,6 @@
 {
     "name": "task-tracker",
-    "version": "0.1.0",
+    "version": "1.0.0",
     "description": "",
     "main": "app/main.js",
     "dependencies": {
@@ -10,20 +10,29 @@
         "angular-material": "^1.1.5",
         "angular-messages": "^1.6.8",
         "dragula": "^3.7.2",
-        "electron": "^1.6.6",
         "electron-squirrel-startup": "^1.0.0",
         "electron-tabs": "^0.6.0",
         "electron-tooltip": "^1.1.4",
         "winston": "^2.4.0"
     },
     "devDependencies": {
+        "electron": "^1.7.11",
+        "electron-builder": "^19.55.2",
         "live-reload": "^1.1.0"
     },
     "scripts": {
         "start": "electron . --enable-logging --remote-debugging-port=9222",
         "listen": "live-reload --port 35729 .",
         "dev": "NODE_ENV='development' npm run start",
-        "osx-package": "electron-packager . --overwrite --platform=darwin --arch=x64 --icon=assets/app.icns --prune=true --out=release-builds"
+        "pack": "electron-builder --dir",
+        "dist": "electron-builder"
+    },
+    "build": {
+        "appId": "ando.task-tracker",
+        "icon": "assets/app.icns",
+        "mac": {
+            "category": "public.app-category.productivity"
+        }
     },
     "repository": {
         "type": "git",
