@@ -26,8 +26,8 @@
             <md-content md-theme="docs-dark">
                 <div class="toolbar-actions md-toolbar-tools" layout="row">
                     <span flex></span>
-                    <md-button flex="25" class="md-icon-button md-primary icon icon-check icon-text">&nbsp;Done</md-button>
-                    <md-button flex="30" class="md-icon-button md-primary icon icon-trash icon-text" ng-click="taskCtrl.deleteAllTasks()">&nbsp;Clear</md-button>
+                    <md-button flex="25" class="md-icon-button md-primary icon icon-stop icon-text"ng-click="taskCtrl.stopRunningTasks()">&nbsp;&nbsp;Stop</md-button>
+                    <md-button flex="30" class="md-icon-button md-primary icon icon-trash icon-text" ng-click="taskCtrl.deleteAllTasks()">&nbsp;&nbsp;Clear</md-button>
                 </div>
                 <form ng-submit="taskCtrl.addTask()" layout="row" layout-align="center center" class="task-form">
                     <md-input-container flex>
@@ -48,14 +48,14 @@
                         </md-avatar>
                         <div layout="column" flex="100">
                             <div ng-dblclick="taskCtrl.editTask(task)" ng-blur="taskCtrl.onTaskEdittingBlur($event)">
-                                <span class="editable item-major" ng-hide="task.editing">{{task.name | limitTo:14}}
-                                    <span class="item-major" ng-if="task.name.length > 14">...</span>
+                                <span class="editable item-major" ng-hide="task.editing">{{task.name | limitTo:16}}
+                                    <span class="item-major" ng-if="task.name.length > 16">...</span>
                                 </span>
                                 <form ng-submit="taskCtrl.doneEdittingTask(task)" ng-show="task.editing">
                                     <input class="editable item-major" ng-model="task.name" ng-click="taskCtrl.onTextSelection($event)">
                                 </form>
                             </div>
-                            <span class="item-minor">{{ parseInt(task.spentMinute/60) }}h&nbsp;{{ parseInt(task.spentMinute%60) }}m<md-tooltip md-delay="300">Copy</md-tooltip></span>
+                            <span class="item-minor">{{ taskCtrl.getSpentHour(task) }}h&nbsp;{{ taskCtrl.getSpentMinute(task) }}m<md-tooltip md-delay="300">Copy</md-tooltip></span>
                         </div>
                         <md-icon md-svg-icon="delete" class="md-primary md-hue-3 icon-28" ng-click="taskCtrl.deleteTask(task)" aria-label="Delete" flex="10">
                             <md-tooltip md-delay="300">Remove</md-tooltip>
@@ -70,7 +70,7 @@
             <md-content md-theme="docs-dark">
                 <div class="md-toolbar-tools" layout="row">
                     <span flex></span>
-                    <md-label>Time spent: {{ parseInt(taskCtrl.getTotalSpentMinute()/60) }}h&nbsp;{{ parseInt(taskCtrl.getTotalSpentMinute()%60) }}m</md-label>
+                    <md-label>Time spent: {{ taskCtrl.getTotalSpentHour() }}h&nbsp;{{ taskCtrl.getTotalSpentMinute() }}m</md-label>
                 </div>
             </md-content>
         </footer>
