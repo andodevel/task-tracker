@@ -14,3 +14,4 @@ yarn-error.log
 # App
 release-builds/*
 dist/*
+!dist/task-tracker-*-mac.zip
